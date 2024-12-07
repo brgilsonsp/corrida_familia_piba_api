@@ -15,6 +15,7 @@ tags:
     description: Gestão do tempo da corrida de cada atleta
   - name: Classificação
     description: Classificação da corrida
+
 paths:
   /configuracoes/hora_servidor:
     get:
@@ -23,147 +24,140 @@ paths:
       summary: Obtem a hora do servidor
       description: Retorna a hora atual do servidor no formato `HH:mm:ss`.
       responses:
-        '200':
+        "200":
           description: Hora do servidor retornada com sucesso
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  hora:
-                    type: string
-                    description: Hora no formato HH:mm:ss
-              example:
-                hora: "14:35:22"
+                $ref: '#/components/schemas/hora_servidor'
+              examples:
+                hora_servidor:
+                  $ref: '#/components/examples/hora_servidor'
+        "500":
+          description: Erro no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_servidor:
+                  $ref: '#/components/examples/erro_servidor'
+
   /atletas:
     get:
       tags:
         - Atletas
-      summary: Listar atletas
+      summary: Lista os atletas
       description: Retorna uma lista de todos os atletas cadastrados.
       responses:
-        '200':
-          description: Lista de atletas retornada com sucesso
+        "200":
+          description: Lista dos Atletas
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  atletas:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: string
-                          description: Identificação do atleta na base
-                        nome:
-                          type: string
-                          description: Nome do atleta
-                        documento:
-                          type: string
-                          description: Documento do atleta
-                        numero_peito:
-                          type: string
-                          description: Número de peito associado ao atleta
-                        sexo:
-                          type: string
-                          description: Sexo do atleta
-                        data_nascimento:
-                          type: string
-                          format: date
-                          description: Data de nascimento no formato dd/MM/yyyy
-              example:
-                atletas:
-                  - id: "1"
-                    nome: "João da Silva"
-                    documento: "12345678900"
-                    numero_peito: "101"
-                    sexo: "Masculino"
-                    data_nascimento: "01/01/1990"
-                  - id: "2"
-                    nome: "Maria Souza"
-                    documento: "98765432100"
-                    numero_peito: "102"
-                    sexo: "Feminino"
-                    data_nascimento: "15/03/1985"
+                $ref: '#/components/schemas/atletas'
+              examples:
+                atleta:
+                  $ref: '#/components/examples/atletas'
+        "400":
+          description: Dados enviados estão incorretos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_cliente:
+                  $ref: '#/components/examples/erro_cliente'
+        "500":
+          description: Erro no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_servidor:
+                  $ref: '#/components/examples/erro_servidor'
     post:
       tags:
         - Atletas
-      summary: Criar novo atleta
-      description: Cadastra um novo atleta na base de dados.
+      summary: Salva o atleta
+      description: Registra o atleta no banco de dados
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                nome:
-                  type: string
-                  description: Nome do atleta
-                  example: "João da Silva"
-                documento:
-                  type: string
-                  description: Documento do atleta
-                  example: "12345678900"
-                numero_peito:
-                  type: string
-                  description: Número de peito associado ao atleta
-                  example: "101"
-                sexo:
-                  type: string
-                  description: Sexo do atleta
-                  example: "Masculino"
-                data_nascimento:
-                  type: string
-                  format: date
-                  description: Data de nascimento no formato dd/MM/yyyy
-                  example: "01/01/1990"
-                nome_operador:
-                  type: string
-                  description: Nome do operador que registrou o atleta
-                  example: "Carlos"
+              $ref: '#/components/schemas/atleta'
+            examples:
+              atleta:
+                $ref: '#/components/examples/atleta_request'
+              atleta_com_numero_peito:
+                $ref: '#/components/examples/atleta_com_numero_peito_request'
       responses:
-        '200':
-          description: Atleta cadastrado com sucesso
+        "200":
+          description: Dados do atleta salvo com sucesso
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    description: Identificação do atleta na base
-                  nome:
-                    type: string
-                    description: Nome do atleta
-                  documento:
-                    type: string
-                    description: Documento do atleta
-                  numero_peito:
-                    type: string
-                    description: Número de peito associado ao atleta
-                  sexo:
-                    type: string
-                    description: Sexo do atleta
-                  data_nascimento:
-                    type: string
-                    format: date
-                    description: Data de nascimento no formato dd/MM/yyyy
-                  nome_operador:
-                    type: string
-                    description: Nome do operador que registrou o atleta
-              example:
-                id: "1"
-                nome: "João da Silva"
-                documento: "12345678900"
-                numero_peito: "101"
-                sexo: "Masculino"
-                data_nascimento: "01/01/1990"
-                nome_operador: "Carlos"
+                $ref: '#/components/schemas/atleta'
+              examples:
+                atleta:
+                  $ref: '#/components/examples/atleta_response'
+                atleta_com_numero_peito:
+                  $ref: '#/components/examples/atleta_com_numero_peito_response'
+        "400":
+          description: Dados enviados estão incorretos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_cliente:
+                  $ref: '#/components/examples/erro_cliente'
+        "500":
+          description: Erro no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_servidor:
+                  $ref: '#/components/examples/erro_servidor'
 
   /atletas/{id_atleta}:
+    delete:
+      tags:
+        - Atletas
+      summary: Exclui de registros do atletas
+      description: Excluir um registro de um atleta especifico
+      parameters:
+        - in: path
+          name: id_atleta
+          required: true
+          schema:
+            type: string
+            description: id do registro do atleta que será excluído
+      responses:
+        "200":
+          description: Atleta excluído com sucesso
+        "400":
+          description: Dados enviados estão incorretos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_cliente:
+                  $ref: '#/components/examples/erro_cliente'
+        "500":
+          description: Erro no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_servidor:
+                  $ref: '#/components/examples/erro_servidor'
     put:
       tags:
         - Atletas
@@ -181,65 +175,42 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                nome:
-                  type: string
-                  description: Nome do atleta
-                documento:
-                  type: string
-                  description: Documento do atleta
-                numero_peito:
-                  type: string
-                  description: Número de peito associado ao atleta
-                sexo:
-                  type: string
-                  description: Sexo do atleta
-                data_nascimento:
-                  type: string
-                  format: date
-                  description: Data de nascimento no formato dd/MM/yyyy
-                nome_operador:
-                  type: string
-                  description: Nome do operador que realizou a atualização
+              $ref: '#/components/schemas/atleta'
+            examples:
+              atleta:
+                $ref: '#/components/examples/atleta_request'
+              atleta_com_numero_peito:
+                $ref: '#/components/examples/atleta_com_numero_peito_request'
       responses:
-        '200':
+        "200":
           description: Dados do atleta atualizados com sucesso
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    description: Identificação do atleta na base
-                  nome:
-                    type: string
-                    description: Nome do atleta
-                  documento:
-                    type: string
-                    description: Documento do atleta
-                  numero_peito:
-                    type: string
-                    description: Número de peito associado ao atleta
-                  sexo:
-                    type: string
-                    description: Sexo do atleta
-                  data_nascimento:
-                    type: string
-                    format: date
-                    description: Data de nascimento no formato dd/MM/yyyy
-                  nome_operador:
-                    type: string
-                    description: Nome do operador que realizou a atualização
-              example:
-                id: "1"
-                nome: "João da Silva"
-                documento: "12345678900"
-                numero_peito: "101"
-                sexo: "Masculino"
-                data_nascimento: "01/01/1990"
-                nome_operador: "Carlos"
+                $ref: '#/components/schemas/atleta'
+              examples:
+                atleta:
+                  $ref: '#/components/examples/atleta_response'
+                atleta_com_numero_peito:
+                  $ref: '#/components/examples/atleta_com_numero_peito_response'
+        "400":
+          description: Dados enviados estão incorretos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_cliente:
+                  $ref: '#/components/examples/erro_cliente'
+        "500":
+          description: Erro no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_servidor:
+                  $ref: '#/components/examples/erro_servidor'
 
   /cronometragem:
     post:
@@ -252,32 +223,119 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                id_atleta:
-                  type: string
-                  description: ID do atleta
-                horario_inicio:
-                  type: string
-                  format: date-time
-                  description: Horário de início
-                horario_termino:
-                  type: string
-                  format: date-time
-                  description: Horário de término
+              $ref: '#/components/schemas/cronometragem'
+            examples:
+              cronometragem:
+                $ref: '#/components/examples/cronometragem_request'
       responses:
-        '200':
+        "200":
           description: Cronometragem registrada com sucesso
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id_cronometragem:
-                    type: string
-                    description: ID da cronometragem registrada
-              example:
-                id_cronometragem: "202411200001"
+                $ref: '#/components/schemas/cronometragem'
+              examples:
+                cronometragem:
+                  $ref: '#/components/examples/cronometragem_response'
+        "400":
+          description: Dados enviados estão incorretos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_cliente:
+                  $ref: '#/components/examples/erro_cliente'
+        "500":
+          description: Erro no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_servidor:
+                  $ref: '#/components/examples/erro_servidor'
+    get:
+      tags:
+        - Cronometragem
+      summary: Obtem os registros de cronometragem de acordo com os parâmetos solicitado
+      description: Retorna os registros de cronometragem de um ou mais atletas
+      parameters:
+        - in: query
+          name: operador
+          schema:
+            type: string
+            description: Nome do operador que efetuou o registro
+        - in: query
+          name: numero_peito
+          schema:
+            type: integer
+            description: Número de peito utilizado pelo atleta
+      responses:
+        "200":
+          description: Lista de registro de cronometragem
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cronometragens'
+              examples:
+                cronometragens_por_colaborador:
+                  $ref: '#/components/examples/cronometragens_por_colaborador'
+                cronometragens_por_atleta:
+                  $ref: '#/components/examples/cronometragens_por_atleta'
+        "400":
+          description: Dados enviados estão incorretos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_cliente:
+                  $ref: '#/components/examples/erro_cliente'
+        "500":
+          description: Erro no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_servidor:
+                  $ref: '#/components/examples/erro_servidor'
+
+  /cronometragem/{id_cronometragem}:
+    delete:
+      tags:
+        - Cronometragem
+      summary: Exclui registro de cronometragem
+      description: Excluir um registro de cronometragem especifico
+      parameters:
+        - in: path
+          name: id_cronometragem
+          required: true
+          schema:
+            type: string
+            description: id do registro que será excluído
+      responses:
+        "200":
+          description: Registro excluído com sucesso
+        "400":
+          description: Dados enviados estão incorretos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_cliente:
+                  $ref: '#/components/examples/erro_cliente'
+        "500":
+          description: Erro no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_servidor:
+                  $ref: '#/components/examples/erro_servidor'
 
   /classificacao:
     get:
@@ -286,32 +344,283 @@ paths:
       summary: Obter classificação
       description: Retorna a classificação dos atletas com base nos tempos registrados.
       responses:
-        '200':
+        "200":
           description: Classificação retornada com sucesso
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  classificacao:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        posicao:
-                          type: integer
-                          description: Posição do atleta
-                        id_atleta:
-                          type: string
-                          description: ID do atleta
-                        tempo_total:
-                          type: string
-                          description: Tempo total no formato HH:mm:ss.SSS
-              example:
+                $ref: '#/components/schemas/classificacao'
+              examples:
                 classificacao:
-                  - posicao: 1
-                    id_atleta: "1"
-                    tempo_total: "00:25:30.125"
-                  - posicao: 2
-                    id_atleta: "2"
-                    tempo_total: "00:27:15.300"
+                  $ref: '#/components/examples/classificacao'
+        "500":
+          description: Erro no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_servidor:
+                  $ref: '#/components/examples/erro_servidor'
+                
+
+components:
+  schemas:
+    hora_servidor:
+      type: object
+      properties:
+        hora:
+          type: string
+          description: Hora no formato HH:mm:ss
+    atleta:
+      type: object
+      properties:
+        id_atleta:
+          type: string
+          description: Id do registro do atleta
+          readOnly: true
+        nome:
+          type: string
+          description: Nome do atleta
+        documento:
+          type: string
+          description: Documento do atleta
+        numero_peito:
+          type: integer
+          description: Número de peito associado ao atleta
+        sexo:
+          type: string
+          description: Sexo do atleta
+          enum:
+            - "Masculino"
+            - "Feminino"
+        data_nascimento:
+          type: string
+          format: date
+          description: Data de nascimento no formato dd/MM/yyyy
+        colaborador:
+          type: string
+          description: Nome do colaborador. Obrigatório caso envie o campo numero_peito
+      required:
+        - nome
+        - documento
+        - sexo
+        - data_nascimento
+    atletas:
+      type: array
+      description: Lista dos atletas
+      items:
+        $ref: '#/components/schemas/cronometragem'
+    classificacao:
+      type: array
+      items:
+        type: object
+        properties:
+          posicao:
+            type: integer
+            description: Posição do atleta
+          nome_atleta:
+            type: string
+            description: Nome completo do atleta
+          tempo_corrida:
+            type: string
+            description: Tempo total no formato HH:mm:ss.SSS
+          idade:
+            type: integer
+            description: idade do atleta
+          sexo:
+            type: string
+            enum:
+              - "Masculino"
+              - "Feminino"
+            description: Sexo do atleta
+          numero_peito:
+            type: integer
+            description: Número de peito que atleta utilizou na corrida
+          categoria:
+            type: string
+            description: categoria do evento que o atleta participou
+            enum:
+              - "Corrida"
+              - "Caminhada" 
+          colaborador:
+            type: string
+            description: Nome do colaborador que aferiu o momento que o atleta cruzou a linha de chegada
+        required:
+          - posicao
+          - nome_atleta
+          - tempo_corrida
+          - idade
+          - sexo
+          - numero_peito
+          - categoria
+    cronometragem:
+      type: object
+      properties:
+        id_cronometragem:
+          type: string
+          description: ID do registro. Não deve ser enviado para a API
+          readOnly: true
+        numero_peito:
+          type: integer
+          description: ID do atleta
+        hora_cruzou_linha_chegada:
+          type: string
+          format: date-time
+          description: Horário que atleta cruzou a linha de chegada, no formato HH:mm:ss.SSS
+        colaborador:
+          type: string
+          description: Nome do colaborador que aferiu o momento que o atleta cruzou a linha de chegada
+        nome_atleta:
+          type: string
+          description: Nome do atleta associado ao numero_peito
+      required:
+        - numero_peito
+        - hora_cruzou_linha_chegada
+        - colaborador
+    cronometragens:
+      type: array
+      description: Lista de cronometragem
+      items:
+        $ref: '#/components/schemas/cronometragem'
+    error:
+      type: object
+      properties:
+        codigo:
+          type: string
+          description: Código do erro para facilitar o troubleshooting
+        mensagem:
+          type: string
+          description: Mensagem do erro
+  examples:
+    hora_servidor:
+      value:
+        hora: "14:35:22"
+    atleta_request:
+      value:
+        nome: "Ana Cristina"
+        documento: "770.455.510-37"
+        sexo: "Feminino"
+        data_nascimento: "17/12/2000"
+    atleta_com_numero_peito_request:
+      value:
+        nome: "Ana Cristina"
+        documento: "770.455.510-37"
+        sexo: "Feminino"
+        data_nascimento: "17/12/2000"
+        numero_peito: 12345
+        colaborador: "Lucas"
+    atleta_response:
+      value:
+        id_atleta: "bf270a87-06f0-4d24-a930-5bd0edab9390"
+        nome: "Ana Cristina"
+        documento: "770.455.510-37"
+        sexo: "Feminino"
+        data_nascimento: "17/12/2000"
+    atleta_com_numero_peito_response:
+      value:
+        id_atleta: "bf270a87-06f0-4d24-a930-5bd0edab9390"
+        nome: "Ana Cristina"
+        documento: "770.455.510-37"
+        sexo: "Feminino"
+        data_nascimento: "17/12/2000"
+        numero_peito: 12345
+        colaborador: "Lucas"
+    atletas:
+      value:
+        - id_atleta: "bf270a87-06f0-4d24-a930-5bd0edab9390"
+          nome: "Ana Cristina"
+          documento: "770.455.510-37"
+          sexo: "Feminino"
+          data_nascimento: "17/12/2000"
+          numero_peito: 12345
+          colaborador: "Lucas"
+        - id_atleta: "887ca30b-9502-4c19-b60e-9a8a31d924ec"
+          nome: "Paulo"
+          documento: "145.947.750-20"
+          sexo: "Masculino"
+          data_nascimento: "07/09/1997"
+        - id_atleta: "671879b9-0760-40fb-bf77-766aff63aec2"
+          nome: "Ricardo"
+          documento: "757.677.430-45"
+          sexo: "Masculino"
+          data_nascimento: "23/01/1976"
+          numero_peito: 657687
+          colaborador: "Samantha"
+    classificacao:
+      value:
+        - posicao: 1
+          nome_atleta: "Carlos Fernandes"
+          tempo_corrida: "00:25:30.125"
+          idade: 30
+          sexo: "Masculino"
+          numero_peito: 1234
+          categoria: "Corrida"
+          colaborador: "Paulo"
+        - posicao: 2
+          nome_atleta: "Paula Souza"
+          tempo_corrida: "00:26:57.432"
+          idade: 30
+          sexo: "Masculino"
+          numero_peito: 7654
+          categoria: "Corrida"
+          colaborador: "Carlos"
+        - posicao: 0
+          nome_atleta: "Antonio"
+          tempo_corrida: "00:00:00.000"
+          idade: 18
+          sexo: "Masculino"
+          numero_peito: 4321
+          categoria: "Caminhada"
+    cronometragem_request:
+      value:
+        numero_peito: 121212
+        hora_cruzou_linha_chegada: "00:25:30.125"
+        colaborador: Paulinho
+    cronometragem_response:
+      value:
+        id_cronometragem: "91590d25-6f82-4a85-9c5e-489799aacda0"
+        numero_peito: 121212
+        hora_cruzou_linha_chegada: "00:25:30.125"
+        colaborador: Paulinho
+    cronometragens_por_colaborador:
+      value:
+        - id_cronometragem: "91590d25-6f82-4a85-9c5e-489799aacda0"
+          numero_peito: 121212
+          nome_atleta: "Marco Antonio"
+          hora_cruzou_linha_chegada: "00:25:30.125"
+          colaborador: Paulinho
+        - id_cronometragem: "91590d25-6f82-4a85-9c5e-489799aacda0"
+          numero_peito: 65432
+          nome_atleta: Fernada
+          hora_cruzou_linha_chegada: "00:22:30.125"
+          colaborador: Paulinho
+    cronometragens_por_atleta:
+      value:
+        - id_cronometragem: "15f4fdd6-d69e-4243-9bb9-673a925888e2"
+          numero_peito: 76767676
+          nome_atleta: "Patricia"
+          hora_cruzou_linha_chegada: "00:25:30.125"
+          colaborador: Paulinho
+        - id_cronometragem: "15f4fdd6-d69e-4243-9bb9-673a925888e2"
+          numero_peito: 76767676
+          nome_atleta: Carlinha
+          hora_cruzou_linha_chegada: "00:14:52.453"
+          colaborador: Paulinho
+        - id_cronometragem: "15f4fdd6-d69e-4243-9bb9-673a925888e2"
+          numero_peito: 76767676
+          nome_atleta: Patricia
+          hora_cruzou_linha_chegada: "00:22:31.8975"
+          colaborador: Lucas
+    erro_servidor:
+      value:
+        codigo: "9604f41a-cbb9-46dc-bf45-475eb02a0e9b"
+        mensagem: "Ocoreu um erro interno no servidor"
+    erro_cliente:
+      value:
+        codigo: "016e9028-2cfe-4855-a1c9-c95e7f6ebd27"
+        mensagem: "Campos enviados estão incorretos, por favor, verifique"
+
+
+
+
