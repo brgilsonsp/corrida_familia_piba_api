@@ -16,13 +16,13 @@ resource "aws_api_gateway_deployment" "api_gtw_rest" {
   ]
 }
 
-resource "aws_api_gateway_stage" "mock" {
+resource "aws_api_gateway_stage" "prd" {
   deployment_id = aws_api_gateway_deployment.api_gtw_rest.id
   rest_api_id   = aws_api_gateway_rest_api.api_gtw_rest.id
-  stage_name    = "mock"
+  stage_name    = "prd"
 
   tags = {
-    name    = "mock"
+    name    = "prd"
     project = local.project_name
   }
 }
