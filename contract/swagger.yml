@@ -267,6 +267,19 @@ paths:
         - Cronometragem
       summary: Obtem hora de largada
       description: Obtém uma lista da hora de largada
+      parameters:
+        - in: query
+          name: monitor
+          required: false
+          schema:
+            type: string
+            description: Nome do operador que efetuou a marcação
+        - in: query
+          name: numero_peito
+          required: false
+          schema:
+            type: string
+            description: Número de peito do atleta
       responses:
         "200":
           description: Lista de largada
@@ -275,10 +288,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/largadas'
               examples:
-                largadas:
-                  $ref: '#/components/examples/largadas_response'
+                largadas_geral:
+                  $ref: '#/components/examples/largadas_geral'
+                largadas_por_monitor:
+                  $ref: '#/components/examples/largadas_por_monitor'
+                largadas_por_num_peito:
+                  $ref: '#/components/examples/largadas_por_num_peito'
         "204":
-          description: Registros não encontrado
+          description: Nenhum registro encontrado
           content:
             application/json:
               schema:
@@ -299,26 +316,26 @@ paths:
       tags:
         - Cronometragem
       summary: Registra a hora de largada
-      description: Registra a hora de largada de cada atleta
+      description: Registra a hora de largada do atleta
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/largadas'
+              $ref: '#/components/schemas/largada'
             examples:
               largadas:
-                $ref: '#/components/examples/largadas_request'
+                $ref: '#/components/examples/largada_request'
       responses:
         "200":
           description: Largada atualizada com sucesso
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/largadas'
+                $ref: '#/components/schemas/largada'
               examples:
-                largadas:
-                  $ref: '#/components/examples/largadas_response'
+                largada:
+                  $ref: '#/components/examples/largada_response_sem_atleta'
         "201":
           description: Largada registrada com sucesso
           content:
@@ -326,8 +343,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/largada'
               examples:
-                largadas:
-                  $ref: '#/components/examples/largadas_response'
+                largada:
+                  $ref: '#/components/examples/largada_response_sem_atleta'
         "400":
           description: Dados enviados estão incorretos
           content:
@@ -346,59 +363,19 @@ paths:
               examples:
                 erro_servidor:
                   $ref: '#/components/examples/erro_servidor'
-  /cronometragem/largadas/{numero_peito}:
-    get:
-      tags:
-        - Cronometragem
-      summary: Obtem hora de largada
-      description: Obtém a hora de largada de um atleta
-      parameters:
-        - in: path
-          name: numero_peito
-          required: true
-          schema:
-            type: string
-            description: Número do peito que será consultado
-      responses:
-        "200":
-          description: Lista de largada
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/largada'
-              examples:
-                largadas:
-                  $ref: '#/components/examples/largada_response'
-        "404":
-          description: Registro não encontrado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-              examples:
-                nao_encontrado:
-                  $ref: '#/components/examples/nao_encontrado'
-        "500":
-          description: Erro no servidor
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-              examples:
-                erro_servidor:
-                  $ref: '#/components/examples/erro_servidor'
+  /cronometragem/largadas/{id_registro}:
     put:
       tags:
         - Cronometragem
       summary: Atualiza a hora de largada
-      description: Atualiza a hora de largada de um atleta
+      description: Atualiza a hora de largada
       parameters:
         - in: path
-          name: numero_peito
+          name: id_registro
           required: true
           schema:
             type: string
-            description: Número do peito que será atualizado
+            description: ID do registro que será atualizado
       requestBody:
         required: true
         content:
@@ -416,8 +393,50 @@ paths:
               schema:
                 $ref: '#/components/schemas/largada'
               examples:
-                largadas:
+                largada:
                   $ref: '#/components/examples/largada_response'
+        "404":
+          description: Registro não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                nao_encontrado:
+                  $ref: '#/components/examples/nao_encontrado'
+        "400":
+          description: Dados enviados estão incorretos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_cliente:
+                  $ref: '#/components/examples/erro_cliente'
+        "500":
+          description: Erro no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_servidor:
+                  $ref: '#/components/examples/erro_servidor'
+    delete:
+      tags:
+        - Cronometragem
+      summary: Remove o registro de uma largada
+      description: Remove o registro de uma largada
+      parameters:
+        - in: path
+          name: id_registro
+          required: true
+          schema:
+            type: string
+            description: ID do registro que será atualizado
+      responses:
+        "200":
+          description: Registro removido com sucesso
         "404":
           description: Registro não encontrado
           content:
@@ -450,8 +469,8 @@ paths:
     post:
       tags:
         - Cronometragem
-      summary: Registrar cronometragem de um atleta
-      description: Registra o horário de início e término para o percurso de um atleta.
+      summary: Registrar momento que os atletas cruzaram a linha de chegada
+      description:  Registrar momento que os atletas cruzaram a linha de chegada. A API recebe uma lista de chegada
       requestBody:
         required: true
         content:
@@ -463,7 +482,7 @@ paths:
                 $ref: '#/components/examples/cronometragem_request'
       responses:
         "200":
-          description: Cronometragem registrada com sucesso
+          description: Chegada registrada com sucesso
           content:
             application/json:
               schema:
@@ -492,8 +511,8 @@ paths:
     get:
       tags:
         - Cronometragem
-      summary: Obtem os registros de cronometragem de acordo com os parâmetos solicitado
-      description: Retorna os registros de cronometragem de um ou mais atletas
+      summary: Obtem os registros do momento que o atleta cruzou a linha de chegada
+      description: Retorna os registros do momento que o atleta cruzou a linha de chegada
       parameters:
         - in: query
           name: monitor
@@ -507,7 +526,7 @@ paths:
             description: Número de peito utilizado pelo atleta
       responses:
         "200":
-          description: Lista de registro de cronometragem
+          description: Lista de registro de tempo de chegada
           content:
             application/json:
               schema:
@@ -535,6 +554,107 @@ paths:
               examples:
                 erro_cliente:
                   $ref: '#/components/examples/erro_cliente'
+        "500":
+          description: Erro no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_servidor:
+                  $ref: '#/components/examples/erro_servidor'
+  /cronometragem/chegadas/{id_registro}:
+    put:
+      tags:
+        - Cronometragem
+      summary: Atualiza o registro do momento que o atleta cruzou linha de chegada
+      description:  Atualiza o registro do momento que o atleta cruzou linha de chegada
+      parameters:
+        - in: path
+          name: id_registro
+          schema:
+            type: string
+            description: Id od registro
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/chegada'
+            examples:
+              cronometragem:
+                $ref: '#/components/examples/cronometragem_request'
+      responses:
+        "200":
+          description: Chegada registrada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/chegada'
+              examples:
+                cronometragem:
+                  $ref: '#/components/examples/cronometragem_response'
+        "400":
+          description: Dados enviados estão incorretos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_cliente:
+                  $ref: '#/components/examples/erro_cliente'
+        "404":
+          description: Registro não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                nao_encontrado:
+                  $ref: '#/components/examples/nao_encontrado'
+        "500":
+          description: Erro no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_servidor:
+                  $ref: '#/components/examples/erro_servidor'
+    delete:
+      tags:
+        - Cronometragem
+      summary: Exclui o registro do momento que o atleta cruzou linha de chegada
+      description:  Exclui o registro do momento que o atleta cruzou linha de chegada
+      parameters:
+        - in: path
+          name: id_registro
+          schema:
+            type: string
+            description: Id od registro
+          required: true
+      responses:
+        "200":
+          description: Registro removido com sucesso
+        "400":
+          description: Dados enviados estão incorretos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_cliente:
+                  $ref: '#/components/examples/erro_cliente'
+        "404":
+          description: Registro não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                nao_encontrado:
+                  $ref: '#/components/examples/nao_encontrado'
         "500":
           description: Erro no servidor
           content:
@@ -851,7 +971,7 @@ components:
           description: Nome do monitor que aferiu o momento que o atleta cruzou a linha de chegada
         nome_atleta:
           type: string
-          description: Nome do atleta associado ao numero_peito
+          description: Nome do atleta associado ao numero_peito. Será enviado apenas na consulta
           readOnly: true
       required:
         - numero_peito
@@ -878,7 +998,7 @@ components:
           description: Nome do monitor que aferiu o momento que o atleta fez a largada
         nome_atleta:
           type: string
-          description: Nome do atleta associado ao numero_peito
+          description: Nome do atleta associado ao numero_peito. Será enviado apenas na consulta por número de peito
           readOnly: true
       required:
         - numero_peito
@@ -1021,18 +1141,21 @@ components:
           modalidade: Corrida
           numero_peito: 6543
           monitor: "Samantha"
-    largadas_request:
+    largadas_geral:
       value:
         - numero_peito: 1234
           hora: "08:13:12.876"
+          nome_atleta: "Natalia"
           monitor: "Luiz"
         - numero_peito: 4321
           hora: "08:14:11.345"
-          monitor: "Luiz"
+          nome_atleta: "Antonio"
+          monitor: "Fernanda"
         - numero_peito: 7654
           hora: "08:20:04.098"
-          monitor: "Luiz"
-    largadas_response:
+          nome_atleta: "Flavio"
+          monitor: "Carlos"
+    largadas_por_monitor:
       value:
         - numero_peito: 1234
           hora: "08:13:12.876"
@@ -1046,11 +1169,30 @@ components:
           hora: "08:20:04.098"
           nome_atleta: "Flavio"
           monitor: "Luiz"
+    largadas_por_num_peito:
+      value:
+        - numero_peito: 1234
+          hora: "08:13:12.876"
+          nome_atleta: "Natalia"
+          monitor: "Carlos"
+        - numero_peito: 1234
+          hora: "08:14:11.345"
+          nome_atleta: "Natalia"
+          monitor: "Luiz"
+        - numero_peito: 1234
+          hora: "08:20:04.098"
+          nome_atleta: "Natalia"
+          monitor: "Fernanda"
     largada_response:
       value:
         numero_peito: 1234
         hora: "08:13:12.876"
         nome_atleta: "Natalia"
+        monitor: "Luiz"
+    largada_response_sem_atleta:
+      value:
+        numero_peito: 1234
+        hora: "08:13:12.876"
         monitor: "Luiz"
     largada_request:
       value:
@@ -1146,7 +1288,7 @@ components:
     nao_encontrado:
       value:
         codigo: "46dcbf45"
-        mensagem: "Registro não encontrado"
+        mensagem: "Registro(s) não encontrado"
     erro_cliente:
       value:
         codigo: "016e9028-2cfe-4855-a1c9-c95e7f6ebd27"
@@ -1155,7 +1297,3 @@ components:
       value:
         codigo: "97c9759b-5764-4f4a-9e62-2616d2c14052"
         mensagem: "Número de peito informado já está em uso pelo atleta {{DOCUMENTO_ATLETA}}"
-
-
-
-
