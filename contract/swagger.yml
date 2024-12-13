@@ -986,6 +986,10 @@ components:
       type: object
       description: Momento que o atleta iniciou a corrida
       properties:
+        id_largada:
+          type: string
+          description: ID do registro da largada
+          readOnly: true
         numero_peito:
           type: string
           description: Número de peito do atleta
@@ -1143,54 +1147,65 @@ components:
           monitor: "Samantha"
     largadas_geral:
       value:
-        - numero_peito: 1234
+        - id_largada: 63bdac54-ccb1-4f59-ae1e-68639442e610
+          numero_peito: 1234
           hora: "08:13:12.876"
           nome_atleta: "Natalia"
           monitor: "Luiz"
-        - numero_peito: 4321
+        - id_largada: d8be64b9-07fc-4feb-93bf-955ea0f802c3
+          numero_peito: 4321
           hora: "08:14:11.345"
           nome_atleta: "Antonio"
           monitor: "Fernanda"
-        - numero_peito: 7654
+        - id_largada: edab56eb-fb14-4885-97d7-989bd65252c9
+          numero_peito: 7654
           hora: "08:20:04.098"
           nome_atleta: "Flavio"
           monitor: "Carlos"
     largadas_por_monitor:
       value:
-        - numero_peito: 1234
+        - id_largada: 63bdac54-ccb1-4f59-ae1e-68639442e610
+          numero_peito: 1234
           hora: "08:13:12.876"
           nome_atleta: "Natalia"
           monitor: "Luiz"
-        - numero_peito: 4321
+        - id_largada: d8be64b9-07fc-4feb-93bf-955ea0f802c3
+          numero_peito: 4321
           hora: "08:14:11.345"
           nome_atleta: "Antonio"
           monitor: "Luiz"
-        - numero_peito: 7654
+        - id_largada: edab56eb-fb14-4885-97d7-989bd65252c9
+          numero_peito: 7654
           hora: "08:20:04.098"
           nome_atleta: "Flavio"
           monitor: "Luiz"
     largadas_por_num_peito:
       value:
-        - numero_peito: 1234
+        - id_largada: 63bdac54-ccb1-4f59-ae1e-68639442e610
+          numero_peito: 1234
           hora: "08:13:12.876"
           nome_atleta: "Natalia"
           monitor: "Carlos"
-        - numero_peito: 1234
+        - id_largada: 63bdac54-ccb1-4f59-ae1e-68639442e610
+          numero_peito: 1234
           hora: "08:14:11.345"
           nome_atleta: "Natalia"
           monitor: "Luiz"
-        - numero_peito: 1234
+        - id_largada: 63bdac54-ccb1-4f59-ae1e-68639442e610
+          numero_peito: 1234
           hora: "08:20:04.098"
           nome_atleta: "Natalia"
           monitor: "Fernanda"
     largada_response:
       value:
+        id_largada: 63bdac54-ccb1-4f59-ae1e-68639442e610
         numero_peito: 1234
         hora: "08:13:12.876"
         nome_atleta: "Natalia"
         monitor: "Luiz"
     largada_response_sem_atleta:
       value:
+        id_largada: 63bdac54-ccb1-4f59-ae1e-68639442e610
         numero_peito: 1234
         hora: "08:13:12.876"
         monitor: "Luiz"
@@ -1250,17 +1265,17 @@ components:
     cronometragens_por_atleta:
       value:
         - id_cronometragem: "15f4fdd6-d69e-4243-9bb9-673a925888e2"
-          numero_peito: 76767676
+          numero_peito: 6578
           nome_atleta: "Patricia"
           hora: "00:25:30.125"
           monitor: Paulinho
         - id_cronometragem: "15f4fdd6-d69e-4243-9bb9-673a925888e2"
-          numero_peito: 76767676
+          numero_peito: 9009
           nome_atleta: Carlinha
           hora: "00:14:52.453"
           monitor: Paulinho
         - id_cronometragem: "15f4fdd6-d69e-4243-9bb9-673a925888e2"
-          numero_peito: 76767676
+          numero_peito: 23456
           nome_atleta: Patricia
           hora: "00:22:31.8975"
           monitor: Lucas
