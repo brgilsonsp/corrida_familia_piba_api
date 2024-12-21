@@ -1,0 +1,574 @@
+{
+	"info": {
+		"_postman_id": "4f177810-7e98-49e2-9db0-fb897705e254",
+		"name": "Sporting Event Race",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4115271"
+	},
+	"item": [
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dns_health}}/actuator/health",
+					"host": [
+						"{{dns_health}}"
+					],
+					"path": [
+						"actuator",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Hour",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dns}}/configuracoes/hora_servidor",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"configuracoes",
+						"hora_servidor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Athlete",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dns}}/atletas",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"atletas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Athlete by doc",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dns}}/atletas?documento=145.947.750-20",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"atletas"
+					],
+					"query": [
+						{
+							"key": "documento",
+							"value": "145.947.750-20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Athlete by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dns}}/atletas?nome_parcial=Pau",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"atletas"
+					],
+					"query": [
+						{
+							"key": "nome_parcial",
+							"value": "Pau"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Athlete by name and doc",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dns}}/atletas?documento=770.455.510-37&nome_parcial=Pau",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"atletas"
+					],
+					"query": [
+						{
+							"key": "documento",
+							"value": "770.455.510-37"
+						},
+						{
+							"key": "nome_parcial",
+							"value": "Pau"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Athlete",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Paula\",\r\n    \"documento\": \"905.560.790-86\",\r\n    \"sexo\": \"Feminino\",\r\n    \"data_nascimento\": \"23/09/1996\",\r\n    \"modalidade\": \"Corrida\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{dns}}/atletas",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"atletas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Athlete",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Paula\",\r\n    \"documento\": \"905.560.790-86\",\r\n    \"sexo\": \"Feminino\",\r\n    \"data_nascimento\": \"23/09/1996\",\r\n    \"modalidade\": \"Corrida\",\r\n    \"numero_peito\": 5987,\r\n    \"monitor\": \"Gabriel\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{dns}}/atletas/3f739e47-aae0-49f4-bc29-523542f3af8d",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"atletas",
+						"3f739e47-aae0-49f4-bc29-523542f3af8d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Athlete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{dns}}/atletas/cd39411b-7011-41d8-a18d-adde50c31ef6",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"atletas",
+						"cd39411b-7011-41d8-a18d-adde50c31ef6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Exit Time",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dns}}/cronometragem/largadas",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"cronometragem",
+						"largadas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Exit Time",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"numero_peito\": 12345,\r\n  \"hora\": \"08:13:12.876\",\r\n  \"monitor\": \"Luiz\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{dns}}/cronometragem/largadas",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"cronometragem",
+						"largadas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Exit Time",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"numero_peito\": 12345,\r\n  \"hora\": \"08:15:12.876\",\r\n  \"monitor\": \"Samanta\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{dns}}/cronometragem/largadas/3860e932-0b02-43a4-9c7d-67877e597afd",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"cronometragem",
+						"largadas",
+						"3860e932-0b02-43a4-9c7d-67877e597afd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Exit Time",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{dns}}/cronometragem/largadas/3860e932-0b02-43a4-9c7d-67877e597afd",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"cronometragem",
+						"largadas",
+						"3860e932-0b02-43a4-9c7d-67877e597afd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ArrivalTime",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"numero_peito\": 657687,\r\n  \"hora\": \"00:25:30.125\",\r\n  \"monitor\": \"Carla\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{dns}}/cronometragem/chegadas",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"cronometragem",
+						"chegadas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT ArrivalTime",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"numero_peito\": 4321,\r\n  \"hora\": \"00:25:30.125\",\r\n  \"monitor\": \"Fernanda\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{dns}}/cronometragem/chegadas/98ffaa1f-a344-44f5-ba9c-c9040dcebf8a",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"cronometragem",
+						"chegadas",
+						"98ffaa1f-a344-44f5-ba9c-c9040dcebf8a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE ArrivalTime",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{dns}}/cronometragem/chegadas/277d42f2-54ef-45ff-b995-ac23f0e79b33",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"cronometragem",
+						"chegadas",
+						"277d42f2-54ef-45ff-b995-ac23f0e79b33"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ArrivalTime",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dns}}/cronometragem/chegadas",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"cronometragem",
+						"chegadas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ArrivalTime by monitor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dns}}/cronometragem/chegadas?monitor=Carla",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"cronometragem",
+						"chegadas"
+					],
+					"query": [
+						{
+							"key": "monitor",
+							"value": "Carla"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ArrivalTime by number",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dns}}/cronometragem/chegadas?numero_peito=4321",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"cronometragem",
+						"chegadas"
+					],
+					"query": [
+						{
+							"key": "numero_peito",
+							"value": "4321"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ArrivalTime by number and monitor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dns}}/cronometragem/chegadas?numero_peito=4321&monitor=Carla",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"cronometragem",
+						"chegadas"
+					],
+					"query": [
+						{
+							"key": "numero_peito",
+							"value": "4321"
+						},
+						{
+							"key": "monitor",
+							"value": "Carla"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Classification",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dns}}/classificacao",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"classificacao"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Classification by gender",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dns}}/classificacao?sexo=Masculino",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"classificacao"
+					],
+					"query": [
+						{
+							"key": "sexo",
+							"value": "Masculino"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Classification by age",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dns}}/classificacao?faixa_etaria=21-30",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"classificacao"
+					],
+					"query": [
+						{
+							"key": "faixa_etaria",
+							"value": "21-30"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Classification by age and gender",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dns}}/classificacao?faixa_etaria=21-30&sexo=Masculino",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"classificacao"
+					],
+					"query": [
+						{
+							"key": "faixa_etaria",
+							"value": "21-30"
+						},
+						{
+							"key": "sexo",
+							"value": "Masculino"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Segmentation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dns}}/segmentacao",
+					"host": [
+						"{{dns}}"
+					],
+					"path": [
+						"segmentacao"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

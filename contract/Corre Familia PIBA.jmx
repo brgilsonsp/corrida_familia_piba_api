@@ -5,8 +5,6 @@
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
-      <boolProp name="TestPlan.functional_mode">false</boolProp>
-      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
     </TestPlan>
     <hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group">
@@ -22,7 +20,8 @@
       <hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="server hour">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
-          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/configuracoes/hora_servidor</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -33,8 +32,10 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET all atlhete">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET atlhete ALL">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/atletas</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -45,8 +46,83 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET atlhete by document">
+          <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
+          <stringProp name="HTTPSampler.path">${stage}/atletas</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="documento" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">123456</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">documento</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET atlhete by name">
+          <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
+          <stringProp name="HTTPSampler.path">${stage}/atletas</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="nome_parcial" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">m</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">nome_parcial</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET atlhete by name+document">
+          <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
+          <stringProp name="HTTPSampler.path">${stage}/atletas</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="nome_parcial" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">m</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">nome_parcial</stringProp>
+              </elementProp>
+              <elementProp name="documento" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">123456</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">documento</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST atlhete">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/atletas</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -71,6 +147,8 @@
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE atlhete">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/atletas/${id_atleta}</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">DELETE</stringProp>
@@ -83,6 +161,8 @@
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PUT atlhete">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/atletas/${id_atleta}</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">PUT</stringProp>
@@ -105,8 +185,10 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET all exit time">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET all start time">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/cronometragem/largadas</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -117,8 +199,10 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST exit time" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST start time">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/cronometragem/largadas</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -139,8 +223,10 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PUT exit time" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PUT start time">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/cronometragem/largadas/${id_registro}</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">PUT</stringProp>
@@ -161,8 +247,10 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE exit time">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE start time">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/cronometragem/largadas/${id_registro}</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">DELETE</stringProp>
@@ -175,6 +263,8 @@
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST  arrival time">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/cronometragem/chegadas</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -197,6 +287,8 @@
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET  arrival time ALL">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/cronometragem/chegadas</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -209,6 +301,8 @@
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET  arrival time Monitor">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/cronometragem/chegadas</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -229,6 +323,8 @@
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET  arrival time Num Peito">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/cronometragem/chegadas</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -249,8 +345,9 @@
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PUT  arrival time">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/cronometragem/chegadas/${id_registro}</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">PUT</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -271,6 +368,8 @@
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE  arrival time">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/cronometragem/chegadas/${id_registro}</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">DELETE</stringProp>
@@ -283,6 +382,8 @@
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET  classification">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/classificacao</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -295,6 +396,8 @@
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET  classification Gender">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/classificacao</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -315,6 +418,8 @@
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET  classification age">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/classificacao</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -335,6 +440,8 @@
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET  classification gender+age">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/classificacao</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -362,6 +469,8 @@
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET  segmentation">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/segmentacao</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -374,6 +483,8 @@
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST  segmentation">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/segmentacao</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -411,6 +522,8 @@
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE  segmentation">
           <stringProp name="HTTPSampler.domain">${dns}</stringProp>
+          <stringProp name="HTTPSampler.port">${por_number}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
           <stringProp name="HTTPSampler.path">${stage}/segmentacao</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">DELETE</stringProp>
@@ -436,26 +549,45 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="HTTP Status 200">
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Content-Type</stringProp>
+              <stringProp name="Header.value">application/json</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="HTTP Status not error">
           <collectionProp name="Asserion.test_strings">
-            <stringProp name="49586">200</stringProp>
+            <stringProp name="52469">500</stringProp>
           </collectionProp>
           <stringProp name="Assertion.custom_message"></stringProp>
           <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
           <boolProp name="Assertion.assume_success">false</boolProp>
-          <intProp name="Assertion.test_type">8</intProp>
+          <intProp name="Assertion.test_type">12</intProp>
         </ResponseAssertion>
         <hashTree/>
         <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Variables">
           <collectionProp name="Arguments.arguments">
+            <elementProp name="http_protocol" elementType="Argument">
+              <stringProp name="Argument.name">http_protocol</stringProp>
+              <stringProp name="Argument.value">http</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
             <elementProp name="dns" elementType="Argument">
               <stringProp name="Argument.name">dns</stringProp>
-              <stringProp name="Argument.value">lvwdj.wiremockapi.cloud</stringProp>
+              <stringProp name="Argument.value">localhost</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="por_number" elementType="Argument">
+              <stringProp name="Argument.name">por_number</stringProp>
+              <stringProp name="Argument.value">9111</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="stage" elementType="Argument">
               <stringProp name="Argument.name">stage</stringProp>
-              <stringProp name="Argument.value">/v1</stringProp>
+              <stringProp name="Argument.value">/corre-familia</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="id_atleta" elementType="Argument">
