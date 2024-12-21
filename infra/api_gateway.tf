@@ -52,6 +52,17 @@ resource "aws_api_gateway_stage" "prd" {
   ]
 }
 
+resource "aws_api_gateway_method_settings" "all_apis_runner_piba" {
+  rest_api_id = aws_api_gateway_rest_api.api_gtw_rest.id
+  stage_name  = aws_api_gateway_stage.prd.stage_name
+  method_path = "*/*"
+
+  settings {
+    metrics_enabled = false
+    logging_level   = "ERROR"
+  }
+}
+
 output "url_api_gtw" {
   value = aws_api_gateway_deployment.api_gtw_rest.invoke_url
 }

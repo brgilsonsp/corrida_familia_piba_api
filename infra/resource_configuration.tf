@@ -24,7 +24,7 @@ resource "aws_api_gateway_integration" "get_server_hour" {
   integration_http_method = aws_api_gateway_method.get_server_hour.http_method
   timeout_milliseconds    = local.timeout_api
   type                    = local.type_integration_api
-  uri                     = "${local.wiremock_address}/${aws_api_gateway_resource.configuration.path_part}/${aws_api_gateway_resource.server_hour.path_part}"
+  uri                     = "${var.address_api}/${aws_api_gateway_resource.configuration.path_part}/${aws_api_gateway_resource.server_hour.path_part}"
 }
 
 resource "aws_api_gateway_method_response" "get_server_hour" {
