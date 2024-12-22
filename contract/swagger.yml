@@ -6,6 +6,8 @@ info:
 servers:
   - url: https://lvwdj.wiremockapi.cloud/v1
     description: Mock
+  - url: https://hufd66cq2i.execute-api.us-east-1.amazonaws.com/prd
+    description: PRD
 tags:
   - name: Configuração
     description: Conteúdo para configurar o front-end
