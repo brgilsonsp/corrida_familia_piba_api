@@ -11,9 +11,85 @@ resource "aws_api_gateway_rest_api" "api_gtw_rest" {
 resource "aws_api_gateway_deployment" "api_gtw_rest" {
   rest_api_id = aws_api_gateway_rest_api.api_gtw_rest.id
 
+  triggers = {
+    redeployment = sha1(jsonencode([
+      aws_api_gateway_resource.configuration.id,
+      aws_api_gateway_resource.server_hour.id,
+      aws_api_gateway_method.get_server_hour.id,
+      aws_api_gateway_integration.get_server_hour.id,
+      aws_api_gateway_resource.athlete.id,
+      aws_api_gateway_resource.id_athlete.id,
+      aws_api_gateway_method.get_athlete.id,
+      aws_api_gateway_integration.get_athlete.id,
+      aws_api_gateway_method.post_athlete.id,
+      aws_api_gateway_integration.post_athlete.id,
+      aws_api_gateway_method.delete_athlete.id,
+      aws_api_gateway_integration.delete_athlete.id,
+      aws_api_gateway_method.put_athlete.id,
+      aws_api_gateway_integration.put_athlete.id,
+      aws_api_gateway_resource.timer.id,
+      aws_api_gateway_resource.exit_timer.id,
+      aws_api_gateway_resource.id_exit_timer.id,
+      aws_api_gateway_method.get_exit_timer.id,
+      aws_api_gateway_integration.get_exit_timer.id,
+      aws_api_gateway_method.post_exit_timer.id,
+      aws_api_gateway_integration.post_exit_timer.id,
+      aws_api_gateway_method.put_exit_timer.id,
+      aws_api_gateway_integration.put_exit_timer.id,
+      aws_api_gateway_method.delete_exit_timer.id,
+      aws_api_gateway_integration.delete_exit_timer.id,
+      aws_api_gateway_resource.end_timer.id,
+      aws_api_gateway_resource.id_end_timer.id,
+      aws_api_gateway_integration.post_end_timer.id,
+      aws_api_gateway_method.post_end_timer.id,
+      aws_api_gateway_integration.get_end_timer.id,
+      aws_api_gateway_method.get_end_timer.id,
+      aws_api_gateway_integration.put_end_timer.id,
+      aws_api_gateway_method.put_end_timer.id,
+      aws_api_gateway_integration.delete_end_timer.id,
+      aws_api_gateway_method.delete_end_timer.id,
+      aws_api_gateway_resource.classification.id,
+      aws_api_gateway_integration.get_classification.id,
+      aws_api_gateway_method.get_classification.id,
+      aws_api_gateway_resource.segment.id,
+      aws_api_gateway_integration.get_segment.id,
+      aws_api_gateway_method.get_segment.id
+    ]))
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
   depends_on = [
     aws_api_gateway_integration.get_server_hour,
-    aws_api_gateway_integration_response.get_server_hour
+    aws_api_gateway_integration_response.get_server_hour,
+    aws_api_gateway_integration.get_athlete,
+    aws_api_gateway_integration_response.get_athlete,
+    aws_api_gateway_integration.post_athlete,
+    aws_api_gateway_integration_response.post_athlete,
+    aws_api_gateway_integration.delete_athlete,
+    aws_api_gateway_integration_response.delete_athlete,
+    aws_api_gateway_integration.put_athlete,
+    aws_api_gateway_integration_response.put_athlete,
+    aws_api_gateway_integration.post_exit_timer,
+    aws_api_gateway_integration_response.post_exit_timer,
+    aws_api_gateway_integration.put_exit_timer,
+    aws_api_gateway_integration_response.put_exit_timer,
+    aws_api_gateway_integration.delete_exit_timer,
+    aws_api_gateway_integration_response.delete_exit_timer,
+    aws_api_gateway_integration.post_end_timer,
+    aws_api_gateway_integration_response.post_end_timer,
+    aws_api_gateway_integration.get_end_timer,
+    aws_api_gateway_integration_response.get_end_timer,
+    aws_api_gateway_integration.put_end_timer,
+    aws_api_gateway_integration_response.put_end_timer,
+    aws_api_gateway_integration.delete_end_timer,
+    aws_api_gateway_integration_response.delete_end_timer,
+    aws_api_gateway_integration.get_classification,
+    aws_api_gateway_integration_response.get_classification,
+    aws_api_gateway_integration.get_segment,
+    aws_api_gateway_integration_response.get_segment
   ]
 }
 

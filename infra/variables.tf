@@ -3,7 +3,12 @@ variable "region_aws_name" {
   type        = string
 }
 
-variable "address_api" {
-  description = "Address to API"
+variable "address_api_mock" {
+  description = "Address to API mocked"
+  type        = string
+}
+
+variable "address_api_prd" {
+  description = "Address to API production"
   type        = string
 }
