@@ -6,6 +6,8 @@ info:
 servers:
   - url: https://lvwdj.wiremockapi.cloud/v1
     description: Mock
+  - url: https://hufd66cq2i.execute-api.us-east-1.amazonaws.com/prd
+    description: PRD
 tags:
   - name: Configuração
     description: Conteúdo para configurar o front-end
@@ -144,6 +146,15 @@ paths:
                   $ref: '#/components/examples/erro_cliente'
                 numero_peito_ja_utilizado:
                   $ref: '#/components/examples/numero_peito_ja_utilizado'
+        "409":
+          description: Quando uma representação de Atleta já está salva
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                conflito:
+                  $ref: '#/components/examples/erro_conflict'
         "500":
           description: Erro no servidor
           content:
@@ -851,8 +862,6 @@ paths:
               examples:
                 erro_servidor:
                   $ref: '#/components/examples/erro_servidor'
-        
-                
 
 components:
   schemas:
@@ -934,9 +943,9 @@ components:
           numero_peito:
             type: integer
             description: Número de peito que atleta utilizou na corrida
-          categoria:
+          modalidade:
             type: string
-            description: categoria do evento que o atleta participou
+            description: Modalidade do evento que o atleta participou
             enum:
               - "Corrida"
               - "Caminhada" 
@@ -1222,7 +1231,7 @@ components:
           idade: 30
           sexo: "Masculino"
           numero_peito: 1234
-          categoria: "Corrida"
+          modalidade: "Corrida"
           monitor: "Paulo"
         - posicao: 2
           nome_atleta: "Paula Souza"
@@ -1230,7 +1239,7 @@ components:
           idade: 30
           sexo: "Masculino"
           numero_peito: 7654
-          categoria: "Corrida"
+          modalidade: "Corrida"
           monitor: "Carlos"
         - posicao: 0
           nome_atleta: "Antonio"
@@ -1238,7 +1247,7 @@ components:
           idade: 18
           sexo: "Masculino"
           numero_peito: 4321
-          categoria: "Caminhada"
+          modalidade: "Caminhada"
     cronometragem_request:
       value:
         numero_peito: 121212
@@ -1308,6 +1317,10 @@ components:
       value:
         codigo: "016e9028-2cfe-4855-a1c9-c95e7f6ebd27"
         mensagem: "Campos enviados estão incorretos, por favor, verifique"
+    erro_conflict:
+      value:
+        codigo: "56e6ca14-bb05-442c-9b00-bc305076de5b"
+        mensagem: "Já existe uma registro salvo com esses dados"
     numero_peito_ja_utilizado: 
       value:
         codigo: "97c9759b-5764-4f4a-9e62-2616d2c14052"
