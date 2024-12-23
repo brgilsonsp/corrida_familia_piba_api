@@ -18,7 +18,7 @@ resource "aws_api_gateway_integration" "get_segment" {
   integration_http_method = aws_api_gateway_method.get_segment.http_method
   timeout_milliseconds    = local.timeout_api
   type                    = local.type_integration_api
-  uri                     = "${var.address_api_mock}/${aws_api_gateway_resource.segment.path_part}"
+  uri                     = "${var.address_api_prd}/${aws_api_gateway_resource.segment.path_part}"
 }
 
 resource "aws_api_gateway_method_response" "get_segment" {
