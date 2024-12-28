@@ -4,6 +4,47 @@ resource "aws_api_gateway_resource" "timer" {
   rest_api_id = aws_api_gateway_rest_api.api_gtw_rest.id
 }
 
+# exit timers general
+resource "aws_api_gateway_resource" "exit_timer_general" {
+  parent_id   = aws_api_gateway_resource.timer.id
+  path_part   = "largada_geral"
+  rest_api_id = aws_api_gateway_rest_api.api_gtw_rest.id
+}
+resource "aws_api_gateway_method" "post_exit_timer_general" {
+  authorization = local.auth_none
+  http_method   = local.method_post
+  resource_id   = aws_api_gateway_resource.exit_timer_general.id
+  rest_api_id   = aws_api_gateway_rest_api.api_gtw_rest.id
+}
+resource "aws_api_gateway_integration" "post_exit_timer_general" {
+  rest_api_id             = aws_api_gateway_rest_api.api_gtw_rest.id
+  resource_id             = aws_api_gateway_resource.exit_timer_general.id
+  http_method             = aws_api_gateway_method.post_exit_timer_general.http_method
+  integration_http_method = aws_api_gateway_method.post_exit_timer_general.http_method
+  timeout_milliseconds    = local.timeout_api
+  type                    = local.type_integration_api
+  uri                     = "${var.address_api_prd}/${aws_api_gateway_resource.timer.path_part}/${aws_api_gateway_resource.exit_timer_general.path_part}"
+}
+resource "aws_api_gateway_method_response" "post_exit_timer_general" {
+  rest_api_id = aws_api_gateway_rest_api.api_gtw_rest.id
+  resource_id = aws_api_gateway_resource.exit_timer_general.id
+  http_method = aws_api_gateway_method.post_exit_timer_general.http_method
+  status_code = local.http_code_ok
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = true
+  }
+}
+resource "aws_api_gateway_integration_response" "post_exit_timer_general" {
+  rest_api_id = aws_api_gateway_rest_api.api_gtw_rest.id
+  resource_id = aws_api_gateway_resource.exit_timer_general.id
+  http_method = aws_api_gateway_method_response.post_exit_timer_general.http_method
+  status_code = aws_api_gateway_method_response.post_exit_timer_general.status_code
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = local.allow_origins
+  }
+  depends_on = [aws_api_gateway_integration.post_exit_timer_general]
+}
+
 # exit timers
 resource "aws_api_gateway_resource" "exit_timer" {
   parent_id   = aws_api_gateway_resource.timer.id

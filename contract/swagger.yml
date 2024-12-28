@@ -461,6 +461,49 @@ paths:
               examples:
                 erro_servidor:
                   $ref: '#/components/examples/erro_servidor'
+  /cronometragem/largada_geral:
+    post:
+      tags:
+        - Cronometragem
+      summary: Registra a hora de largada geral
+      description: Esse registro será utilizado para os atletas que largaram no inicio da prova
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/largada_geral'
+            examples:
+              largadas:
+                $ref: '#/components/examples/largada_geral_request'
+      responses:
+        "200":
+          description: Largada atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/largada_geral'
+              examples:
+                largada:
+                  $ref: '#/components/examples/largada_geral_response'
+        "400":
+          description: Dados enviados estão incorretos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_cliente:
+                  $ref: '#/components/examples/erro_cliente'
+        "500":
+          description: Erro no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_servidor:
+                  $ref: '#/components/examples/erro_servidor'
 
   /cronometragem/chegadas:
     post:
@@ -893,6 +936,24 @@ components:
       description: lista de largadas
       items:
         $ref: '#/components/schemas/largada'
+    largada_geral:
+      type: object
+      description: Momento que os atletas iniciaram a corrida
+      properties:
+        id_largada:
+          type: string
+          description: ID do registro da largada
+          readOnly: true
+        hora:
+          type: string
+          format: hour
+          description: Hora da largada no formato HH:mm:ss.SSS
+        monitor:
+          type: string
+          description: Nome do monitor que aferiu o momento que o atleta fez a largada
+      required:
+        - hora
+        - monitor
     segmentacoes:
       type: object
       description: Segmentos permitidos
@@ -1089,9 +1150,18 @@ components:
         numero_peito: 1234
         hora: "08:13:12.876"
         monitor: "Luiz"
+    largada_geral_response:
+      value:
+        id_largada: 63bdac54-ccb1-4f59-ae1e-68639442e610
+        hora: "08:13:12.876"
+        monitor: "Luiz"
     largada_request:
       value:
         numero_peito: 1234
+        hora: "08:13:12.876"
+        monitor: "Luiz"
+    largada_geral_request:
+      value:
         hora: "08:13:12.876"
         monitor: "Luiz"
     classificacao:
