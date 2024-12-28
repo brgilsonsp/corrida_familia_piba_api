@@ -29,7 +29,7 @@ resource "aws_api_gateway_integration" "get_exit_timer" {
   integration_http_method = aws_api_gateway_method.get_exit_timer.http_method
   timeout_milliseconds    = local.timeout_api
   type                    = local.type_integration_api
-  uri                     = "${var.address_api_mock}/${aws_api_gateway_resource.timer.path_part}/${aws_api_gateway_resource.exit_timer.path_part}"
+  uri                     = "${var.address_api_prd}/${aws_api_gateway_resource.timer.path_part}/${aws_api_gateway_resource.exit_timer.path_part}"
 }
 resource "aws_api_gateway_method_response" "get_exit_timer" {
   rest_api_id = aws_api_gateway_rest_api.api_gtw_rest.id
@@ -64,7 +64,7 @@ resource "aws_api_gateway_integration" "post_exit_timer" {
   integration_http_method = aws_api_gateway_method.post_exit_timer.http_method
   timeout_milliseconds    = local.timeout_api
   type                    = local.type_integration_api
-  uri                     = "${var.address_api_mock}/${aws_api_gateway_resource.timer.path_part}/${aws_api_gateway_resource.exit_timer.path_part}"
+  uri                     = "${var.address_api_prd}/${aws_api_gateway_resource.timer.path_part}/${aws_api_gateway_resource.exit_timer.path_part}"
 }
 resource "aws_api_gateway_method_response" "post_exit_timer" {
   rest_api_id = aws_api_gateway_rest_api.api_gtw_rest.id
@@ -104,7 +104,7 @@ resource "aws_api_gateway_integration" "put_exit_timer" {
   integration_http_method = aws_api_gateway_method.put_exit_timer.http_method
   timeout_milliseconds    = local.timeout_api
   type                    = local.type_integration_api
-  uri                     = "${var.address_api_mock}/${aws_api_gateway_resource.timer.path_part}/${aws_api_gateway_resource.exit_timer.path_part}/${aws_api_gateway_resource.id_exit_timer.path_part}"
+  uri                     = "${var.address_api_prd}/${aws_api_gateway_resource.timer.path_part}/${aws_api_gateway_resource.exit_timer.path_part}/${aws_api_gateway_resource.id_exit_timer.path_part}"
 
   request_parameters = {
     "integration.request.path.id_registro" = local.path_id_register
@@ -147,7 +147,7 @@ resource "aws_api_gateway_integration" "delete_exit_timer" {
   integration_http_method = aws_api_gateway_method.delete_exit_timer.http_method
   timeout_milliseconds    = local.timeout_api
   type                    = local.type_integration_api
-  uri                     = "${var.address_api_mock}/${aws_api_gateway_resource.timer.path_part}/${aws_api_gateway_resource.exit_timer.path_part}/${aws_api_gateway_resource.id_exit_timer.path_part}"
+  uri                     = "${var.address_api_prd}/${aws_api_gateway_resource.timer.path_part}/${aws_api_gateway_resource.exit_timer.path_part}/${aws_api_gateway_resource.id_exit_timer.path_part}"
 
   request_parameters = {
     "integration.request.path.id_registro" = local.path_id_register
