@@ -25,7 +25,7 @@ resource "aws_api_gateway_integration" "get_athlete" {
   integration_http_method = aws_api_gateway_method.get_athlete.http_method
   timeout_milliseconds    = local.timeout_api
   type                    = local.type_integration_api
-  uri                     = "${var.address_api_mock}/${aws_api_gateway_resource.athlete.path_part}"
+  uri                     = "${var.address_api_prd}/${aws_api_gateway_resource.athlete.path_part}"
 }
 
 resource "aws_api_gateway_method_response" "get_athlete" {
@@ -65,7 +65,7 @@ resource "aws_api_gateway_integration" "post_athlete" {
   integration_http_method = aws_api_gateway_method.post_athlete.http_method
   timeout_milliseconds    = local.timeout_api
   type                    = local.type_integration_api
-  uri                     = "${var.address_api_mock}/${aws_api_gateway_resource.athlete.path_part}"
+  uri                     = "${var.address_api_prd}/${aws_api_gateway_resource.athlete.path_part}"
 }
 
 resource "aws_api_gateway_method_response" "post_athlete" {
@@ -109,7 +109,7 @@ resource "aws_api_gateway_integration" "delete_athlete" {
   integration_http_method = aws_api_gateway_method.delete_athlete.http_method
   timeout_milliseconds    = local.timeout_api
   type                    = local.type_integration_api
-  uri                     = "${var.address_api_mock}/${aws_api_gateway_resource.athlete.path_part}/${aws_api_gateway_resource.id_athlete.path_part}"
+  uri                     = "${var.address_api_prd}/${aws_api_gateway_resource.athlete.path_part}/${aws_api_gateway_resource.id_athlete.path_part}"
 
   request_parameters = {
     "integration.request.path.id_atleta" = local.path_id_athlete
@@ -157,7 +157,7 @@ resource "aws_api_gateway_integration" "put_athlete" {
   integration_http_method = aws_api_gateway_method.put_athlete.http_method
   timeout_milliseconds    = local.timeout_api
   type                    = local.type_integration_api
-  uri                     = "${var.address_api_mock}/${aws_api_gateway_resource.athlete.path_part}/${aws_api_gateway_resource.id_athlete.path_part}"
+  uri                     = "${var.address_api_prd}/${aws_api_gateway_resource.athlete.path_part}/${aws_api_gateway_resource.id_athlete.path_part}"
 
   request_parameters = {
     "integration.request.path.id_atleta" = local.path_id_athlete
