@@ -82,13 +82,6 @@ paths:
                   $ref: '#/components/examples/atletas_filtro_nome'
         "204":
           description: Registros não encontrado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-              examples:
-                nao_encontrado:
-                  $ref: '#/components/examples/nao_encontrado'
         "400":
           description: Dados enviados estão incorretos
           content:
@@ -307,13 +300,6 @@ paths:
                   $ref: '#/components/examples/largadas_por_num_peito'
         "204":
           description: Nenhum registro encontrado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-              examples:
-                nao_encontrado:
-                  $ref: '#/components/examples/nao_encontrado'
         "500":
           description: Erro no servidor
           content:
@@ -549,13 +535,6 @@ paths:
                   $ref: '#/components/examples/cronometragens_por_atleta'
         "204":
           description: Registros não encontrado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-              examples:
-                nao_encontrado:
-                  $ref: '#/components/examples/nao_encontrado'
         "400":
           description: Dados enviados estão incorretos
           content:
@@ -717,13 +696,6 @@ paths:
                   $ref: '#/components/examples/classificacao'
         "204":
           description: Registros não encontrado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-              examples:
-                nao_encontrado:
-                  $ref: '#/components/examples/nao_encontrado'
         "500":
           description: Erro no servidor
           content:
@@ -752,107 +724,6 @@ paths:
                   $ref: '#/components/examples/segmentacoes'
         "204":
           description: Registros não encontrado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-              examples:
-                nao_encontrado:
-                  $ref: '#/components/examples/nao_encontrado'
-        "500":
-          description: Erro no servidor
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-              examples:
-                erro_servidor:
-                  $ref: '#/components/examples/erro_servidor'
-    post:
-      tags:
-        - Segmentação
-      summary: Cadastra as segmentações
-      description: Cadastra as segmentações na basede dados
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/segmentacoes'
-            examples:
-              segmentacoes:
-                $ref: '#/components/examples/segmentacoes'
-      responses:
-        "200":
-          description: Segmentações cadastradas com sucesso
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/segmentacoes'
-              examples:
-                segmentacoes:
-                  $ref: '#/components/examples/segmentacoes'
-        "400":
-          description: Dados enviados estão incorretos
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-              examples:
-                erro_cliente:
-                  $ref: '#/components/examples/erro_cliente'
-        "500":
-          description: Erro no servidor
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-              examples:
-                erro_servidor:
-                  $ref: '#/components/examples/erro_servidor'
-    delete:
-      tags:
-        - Segmentação
-      summary: Exclui segmentação
-      description: Exclui a segmentações solicitada
-      parameters:
-        - in: query
-          name: tipo_segmento
-          schema:
-            type: string
-            description: Tipo do segmento
-            enum:
-              - "sexo"
-              - "range_idade"
-              - "modalidade"
-          required: true
-        - in: query
-          name: valor
-          schema:
-            type: string
-            description: Valor do segmento
-          required: true
-      responses:
-        "200":
-          description: Segmentações excluida com sucesso
-        "204":
-          description: Registros não encontrado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-              examples:
-                nao_encontrado:
-                  $ref: '#/components/examples/nao_encontrado'
-        "400":
-          description: Dados enviados estão incorretos
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-              examples:
-                erro_cliente:
-                  $ref: '#/components/examples/erro_cliente'
         "500":
           description: Erro no servidor
           content:
