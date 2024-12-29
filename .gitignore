@@ -46,3 +46,4 @@ build/
 *.tfstate.backup
 .terraform.lock.hcl
 *.tfvars
+*.tfstate.lock.info

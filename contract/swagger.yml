@@ -324,15 +324,6 @@ paths:
               largadas:
                 $ref: '#/components/examples/largada_request'
       responses:
-        "200":
-          description: Largada atualizada com sucesso
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/largada'
-              examples:
-                largada:
-                  $ref: '#/components/examples/largada_response_sem_atleta'
         "201":
           description: Largada registrada com sucesso
           content:
@@ -478,7 +469,7 @@ paths:
                 $ref: '#/components/examples/largada_geral_request'
       responses:
         "200":
-          description: Largada atualizada com sucesso
+          description: Largada registrada com sucesso
           content:
             application/json:
               schema:
@@ -521,7 +512,7 @@ paths:
               cronometragem:
                 $ref: '#/components/examples/cronometragem_request'
       responses:
-        "200":
+        "201":
           description: Chegada registrada com sucesso
           content:
             application/json:
