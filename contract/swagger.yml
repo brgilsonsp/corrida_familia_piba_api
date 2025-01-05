@@ -740,6 +740,43 @@ paths:
                 erro_servidor:
                   $ref: '#/components/examples/erro_servidor'
 
+  /classificacao/encerrar_corrida:
+    post:
+      tags:
+        - Classificação
+      summary: Finaliza a corrida
+      description: Registra a finalização da corrida, calcula a classificação dos atletas e salva no banco de dados
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/finalizacao'
+            examples:
+              cronometragem:
+                $ref: '#/components/examples/finalizacao'
+      responses:
+        "200":
+          description: Chegada registrada com sucesso
+        "400":
+          description: Dados enviados estão incorretos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_cliente:
+                  $ref: '#/components/examples/erro_cliente'
+        "500":
+          description: Erro no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                erro_servidor:
+                  $ref: '#/components/examples/erro_servidor'
+
   /segmentacao:
     get:
       tags:
@@ -865,6 +902,13 @@ components:
           - sexo
           - numero_peito
           - categoria
+    finalizacao:
+      type: object
+      description: Finaliza o evento
+      properties:
+        monitor:
+          type: string
+          description: Nome do monitor que encerrou a corrida
     chegada:
       type: object
       description: Momento que o atleta cruzou a linha de chegada
@@ -1155,6 +1199,9 @@ components:
       value:
         hora: "08:13:12.876"
         monitor: "Luiz"
+    finalizacao:
+      value:
+        monitor: "Gilson"
     classificacao:
       value:
         - posicao: 1

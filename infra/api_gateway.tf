@@ -54,6 +54,9 @@ resource "aws_api_gateway_deployment" "api_gtw_rest" {
       aws_api_gateway_resource.classification.id,
       aws_api_gateway_integration.get_classification.id,
       aws_api_gateway_method.get_classification.id,
+      aws_api_gateway_resource.close_race.id,
+      aws_api_gateway_integration.post_close_race.id,
+      aws_api_gateway_method.post_close_race.id,
       aws_api_gateway_resource.segment.id,
       aws_api_gateway_integration.get_segment.id,
       aws_api_gateway_method.get_segment.id
@@ -93,6 +96,8 @@ resource "aws_api_gateway_deployment" "api_gtw_rest" {
     aws_api_gateway_integration_response.delete_end_timer,
     aws_api_gateway_integration.get_classification,
     aws_api_gateway_integration_response.get_classification,
+    aws_api_gateway_integration.post_close_race,
+    aws_api_gateway_integration_response.post_close_race,
     aws_api_gateway_integration.get_segment,
     aws_api_gateway_integration_response.get_segment
   ]
